@@ -1,0 +1,139 @@
+%%
+%% small document with sidenotes
+%%
+%% from here
+%% https://www.overleaf.com/latex/templates/example-of-the-tufte-handout-style/ysjghcrgdrnz
+%%
+
+\PassOptionsToPackage{unicode$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names,table}{xcolor}
+
+
+\documentclass{tufte-handout}
+
+\usepackage{hyperref}
+
+\usepackage{xcolor}
+\definecolor{default-linkcolor}{HTML}{A50000}
+\definecolor{default-filecolor}{HTML}{A50000}
+\definecolor{default-citecolor}{HTML}{4077C0}
+\definecolor{default-urlcolor}{HTML}{4077C0}
+
+%%
+%% quotes style
+%%
+\usepackage[autostyle,german=quotes]{csquotes}
+\MakeAutoQuote{«}{»}
+
+\hypersetup{
+$if(title-meta)$
+  pdftitle={$title-meta$},
+$endif$
+$if(author-meta)$
+  pdfauthor={$author-meta$},
+$endif$
+$if(lang)$
+  pdflang={$lang$},
+$endif$
+$if(subject)$
+  pdfsubject={$subject$},
+$endif$
+$if(keywords)$
+  pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
+$endif$
+$if(colorlinks)$
+  colorlinks=true,
+  linkcolor={$if(linkcolor)$$linkcolor$$else$default-linkcolor$endif$},
+  filecolor={$if(filecolor)$$filecolor$$else$default-filecolor$endif$},
+  citecolor={$if(citecolor)$$citecolor$$else$default-citecolor$endif$},
+  urlcolor={$if(urlcolor)$$urlcolor$$else$default-urlcolor$endif$},
+$else$
+  hidelinks,
+$endif$
+  breaklinks=true,
+  pdfcreator={LaTeX via pandoc with the eeefff template},
+  %% to avoid lualatex errors
+  %% draft
+}
+
+
+%%
+%% tuning tufte paragraphs
+%%
+
+\usepackage[parfill]{parskip}
+
+\makeatletter
+% Paragraph indentation and separation for normal text
+\renewcommand{\@tufte@reset@par}{%
+  \setlength{\RaggedRightParindent}{0.0pc}%
+  \setlength{\JustifyingParindent}{0.0pc}%
+  \setlength{\parindent}{0pc}%
+  \setlength{\parskip}{\baselineskip}%
+}
+\@tufte@reset@par
+
+% Paragraph indentation and separation for marginal text
+\renewcommand{\@tufte@margin@par}{%
+  \setlength{\RaggedRightParindent}{0.5pc}%
+  \setlength{\JustifyingParindent}{0.5pc}%
+  \setlength{\parindent}{0.5pc}%
+  \setlength{\parskip}{0pt}%
+}
+\makeatother
+
+% Set up the spacing using fontspec features
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+%%
+%%
+%%
+
+%\geometry{showframe}% for debugging purposes -- displays the margins
+
+\usepackage{amsmath}
+
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+\title{$title$}
+\author{$author$}
+\date{$date$}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% Provides paragraphs of dummy text
+\usepackage{lipsum}
+
+%%
+%% document
+%%
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+
+$if(abstact)$
+\begin{abstract}
+\noindent $abstact$
+\end{abstract}
+$endif$
+
+$body$
+
+\end{document}
